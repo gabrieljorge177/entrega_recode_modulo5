@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+		integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+	<title>Agência | Passagens</title>
+</head>
+
+<body>
+	<!--Início do Menu com acesso para as guias do site-->
+	<header>
+		<nav class="navbar navbar-expand-sm Navbar">
+			<div class="container-fluid">
+				<a class="navbard-brand" href="#"><img id="logo" src="assets/images/logo_nav.png"
+						alt="Vogue Agency"></a>
+				<button class="navbar-toggler navbar-light collapsed" type="button" data-bs-toggle="collapse"
+					data-bs-target="#collapseNavbar" aria-controls="navbar-links" aria-expanded="false"
+					aria-label="toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="navbar-collapse" id="collapseNavbar">
+					<ul class="navbar-nav">
+						<li class="nav-item">
+							<a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
+						</li>
+						<li class="nav-item"><a class="nav-link text-black"
+								href="assets/paginashtml/destino.html">Destino</a>
+						</li>
+						<li class="nav-item"><a class="nav-link text-black"
+								href="assets/paginashtml/promocoes.html">Promoções</a></li>
+						<li class="nav-item"><a class="nav-link text-black"
+								href="assets/paginashtml/contato.html">Contato</a>
+						</li>
+						<li class="nav-item_2"><a class="nav-link text-black" href="./passagem">Cadastrar-se</a></li>
+						<li class="nav-item_3"><a class="nav-link text-black"
+								href="assets/paginashtml/login.html">Login</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<!--Final do Menu com acesso para as guias do site-->
+	<!--Início da sessão do menu com o modelo que implementa o CRUD nas tabelas-->
+	<section>
+		<section>
+			<nav class="navbar navbar-expand-sm Navbar">
+				<div class="container-fluid">
+					<button class="navbar-toggler navbar-light collapsed" type="button" data-bs-toggle="collapse"
+						data-bs-target="#collapseNavbar" aria-controls="navbar-links" aria-expanded="false"
+						aria-label="toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div style="text-align: center;">
+						<div class="navbar-collapse" id="collapseNavbar">
+							<ul class="navbar-nav">
+								<li class="nav-item4"><a class="nav-link text-white" href="./compra"
+										style="color: white;">Cadastro compra</a></li>
+								<li class="nav-item5"><a class="nav-link text-white" href="./cliente"
+										style="color: white;">Cadastro Cliente</a></li>
+								<li class="nav-item_6"><a class="nav-link text-white" href="./passagem"
+										style="color: white;">Cadastro passagem</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</nav>
+		</section>
+		</nav>
+	</section>
+	<!--Final da sessão do menu com o modelo que implementa o CRUD nas tabelas-->
+	<!--Início da parte principal que exibe as tabelas para o usuário -->
+	<main>
+		<div class="p-4">
+			<button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary mb-2 botao1"> Nova
+				Passagem </button>
+			<table class="table table-responsive table-hover">
+				<thead class="table-dark">
+					<tr>
+						<th scope="col" style="color: #ffffff;">id</th>
+						<th scope="col" style="color: #ffffff;">cidade</th>
+						<th scope="col" style="color: #ffffff;">data_passagem</th>
+						<th scope="col" style="color: #ffffff;">preço</th>
+						<th scope="col" style="color: #ffffff;">categoria</th>
+						<th scope="col" style="color: #ffffff;">Ações</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="p : ${passagens}">
+						<td th:style="'color: red; background-color: white'" th:text="${p.id_passagem}">ID</td>
+						<td th:style="'color: red; background-color: white'" th:text="${p.cidade}">Cidade</td>
+						<td th:style="'color: red; background-color: white'" th:text="${p.data_passagem}">Data_passagem
+						</td>
+						<td th:style="'color: red; background-color: white'" th:text="${p.preco}">Preço</td>
+						<td th:style="'color: red; background-color: white'" th:text="${p.categoria}">Categoria
+						</td>
+						<td style="background-color: white;">
+
+							<div class="d-flex">
+
+								<div class="d-flex">
+									<a th:href="@{'/passagem'}" data-bs-toggle="modal"
+										th:data-bs-target="'#exampleModal' + ${p.id_passagem}" class="mx-1"
+										title="Editar">
+										<i class="ri-file-edit-line"></i>
+									</a>
+
+									<a th:href="@{'/passagem/' + ${p.id_passagem} + '/excluir'}" class="mx-1"
+										title="Cancelar" onclick="return confirm('Deseja excluir o passagem ?')">
+										<i class="ri-delete-bin-2-line"></i>
+									</a>
+								</div>
+
+								<!-- Modal -->
+								<div class="modal fade" th:id="'exampleModal' + ${p.id_passagem}" tabindex="-1"
+									aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h1 class="modal-title fs-5" id="exampleModalLabel">Modal
+													title</h1>
+												<button type="button" class="btn-close" data-bs-dismiss="modal"
+													aria-label="Close"></button>
+											</div>
+											<div class="modal-body">
+												<form th:action="@{/passagem/cadastrar}" method="post"
+													th:object="${passagem}">
+													<h2 class="text-center">Atualizar</h2>
+													<input type="hidden" id="id_passagem" name="id_passagem"
+														class="form-control" th:value="${p.id_passagem}" />
+													<div class="form-group mb-3">
+														<label for="cidade" class="form-label">
+															Cidade
+														</label>
+														<input type="text" id="cidade" name="cidade"
+															class="form-control" th:value="${p.cidade}" />
+													</div>
+
+													<div class="form-group mb-3">
+														<label for="data_passagem" class="form-label">
+															Data da passagem
+														</label>
+
+														<input type="datetime-local" id="data_passagem"
+															name="data_passagem" class="form-control"
+															th:value="${p.data_passagem}" />
+													</div>
+													<div class="form-group mb-3">
+														<label for="preco" class="form-label">
+															Preço da viagem
+														</label>
+														<input type="number" id="preco" name="preco" step="0.01"
+															class="form-control" th:value="${p.preco}" />
+													</div>
+													<div class="form-group mb-3">
+														<label for="categoria" class="form-label">
+															Qual a categoria da viagem?
+														</label>
+
+														<input type="text" id="categoria" name="categoria"
+															class="form-control" th:value="${p.categoria}" />
+
+														<button type="submit" class="btn btn-primary">
+															Enviar
+														</button>
+														<a href="./passagem" class="btn btn-danger"
+															style="margin-left: 10px">
+															Cancelar
+														</a>
+												</form>
+											</div>
+
+										</div>
+									</div>
+								</div>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="exampleModalLabel">Modal
+							title</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form th:action="@{/passagem/cadastrar}" method="post" th:object="${passagem}">
+							<h2 class="text-center">Cadastrar novo passagem</h2>
+							<div class="form-group mb-3">
+								<label for="cidade" class="form-label">
+									Cidade
+								</label>
+								<input type="text" th:id="cidade" th:name="cidade" class="form-control"
+									th:field="*{cidade}" />
+							</div>
+
+							<div class="form-group mb-3">
+								<label for="data_passagem" class="form-label">
+									Qual a data da passagem?
+								</label>
+								<input type="datetime-local" th:id="data_passagem" th:name="data_passagem" class="form-control"
+									th:field="*{data_passagem}" />
+							</div>
+							<div class="form-group mb-3">
+								<label for="preco" class="form-label">
+									Qual o valor da passagem desejada?
+								</label>
+								<input type="number" th:id="preco" th:name="preco" step="0.01" class="form-control"
+									th:field="*{preco}" />
+							</div>
+
+							<div class="form-group mb-3">
+								<label for="categoria" class="form-label">
+									Qual a categoria do destino da viagem?
+								</label>
+								<input type="text" th:id="categoria" th:name="categoria" class="form-control"
+									th:field="*{categoria}" />
+							</div>
+
+							<button type="submit" class="btn btn-primary">
+								Enviar
+							</button>
+							<a href="./passagem" class="btn btn-danger" style="margin-left: 10px">
+								Cancelar
+							</a>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+	<!--Final da parte principal que exibe as tabelas para o usuário -->
+	<!--Início do footer da página -->
+	<footer>
+		<div id="footer_content">
+			<div id="footer_contacts">
+				<a href="#" class="logo"> <img class="cabecalho_logo" src="./assets/images/logo_nav.png"
+						alt="Logo da Vogue">
+				</a>
+				<p>A empresa para realizar seus sonhos com a melhor experiência</p>
+				<div id="footer_social_media">
+					<a href="#" class="footer_link" id="instagram"> <i class="fa-brands fa-instagram"></i>
+					</a> <a href="#" class="footer_link" id="facebook"> <i class="fa-brands fa-facebook-f"></i>
+					</a> <a href="#" class="footer_link" id="whatsapp"> <i class="fa-brands fa-whatsapp"></i>
+					</a>
+				</div>
+			</div>
+			<ul class="footer_list">
+				<li>
+					<h3>Categorias de viagens</h3>
+				</li>
+				<li><a href="#" class="footer_link">Ecoturismo</a></li>
+				<li><a href="#" class="footer_link">Cidades paradisíacas</a></li>
+				<li><a href="#" class="footer_link">Cidades Históricas</a></li>
+			</ul>
+			<ul class="footer_list">
+				<li>
+					<h3>Produtos</h3>
+				</li>
+				<li><a href="#" class="footer_link">Aluguel de carros</a></li>
+				<li><a href="#" class="footer_link">Shows</a></li>
+				<li><a href="#" class="footer_link">Hospedagem</a></li>
+			</ul>
+			<div id="footer_subscribe">
+				<h2>Inscreva-se</h2>
+				<p>Digite seu email para receber nossas promoções de viagem</p>
+				<div id="input_group">
+					<input type="email" id="email">
+					<button>
+						<i class="fa-regular fa-envelope"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div id="footer_copyright">&#169 2023</div>
+	</footer>
+	<!--Final do footer da página -->
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>
