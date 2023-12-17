@@ -1,3 +1,2 @@
-# backend_client
+Trabalho modulo 5 - Agência de Viagens no Spring
 
-API REST para um cadastro de clientes
